@@ -5,6 +5,6 @@ a unique credentials file.
 
 To install takoma, read the code --do not trust this file-- and run:
 
-   curl -L https://github.com/pantulis/takoma/raw/master/install.sh | bash
+   curl -fsSL https://github.com/pantulis/takoma/raw/master/install.sh | bash
    
 
