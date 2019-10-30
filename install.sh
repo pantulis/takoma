@@ -9,4 +9,4 @@ echo
 echo
 echo "To complete installation of 'takoma' make sure that $HOME/bin is in your $PATH"
 echo "by adding this file to your .profile" 
-echo "export PATH=$PATH:~/bin"
+echo 'export PATH=$PATH:~/bin'
