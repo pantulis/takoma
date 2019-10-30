@@ -12,10 +12,11 @@ while getopts ":h" opt; do
   case ${opt} in
     h )
       echo "Usage:"
-      echo "    -h   Display this help message."
-      echo "    list List takoma environments."
-      echo "    switch <environment> Switch environment."
-      echo "    current Show current environment."
+      echo "    -h           Display this help message."
+      echo "    list         List takoma environments."
+      echo "    switch <env> Switch environment."
+      echo "    current      Show current environment."
+      echo "    install      Generate empty .takoma.json file"
       exit 0
       ;;
    \? )
@@ -80,6 +81,25 @@ default_ttl: '3600'
 }
 
 
+generate_default_takoma_json()
+{
+    echo '{
+    "project1": {
+        "aws_identity_file": "$HOME/.ssh/project1.pem",
+        "aws_access_key_id": "PUTHEREYOURACCESSKEYID",
+        "aws_secret_access_key": "PUTHEREYOURAWSSECRETACCESSKEY",
+        "repo": "$HOME/src/projects/project1"
+    },
+    "project2": {
+        "aws_secret_access_key": "PUTHEREYOURAWSSECRETACCESSKEY",
+        "aws_access_key_id": "PUTHEREYOURACCESSKEYID",
+        "aws_identity_file": "$HOME/.ssh/project2.pem",
+        "repo": "$HOME/src/projects/project2"
+    }
+}
+' > $HOME/.takoma.json
+}
+
 subcommand=$1; shift  
 case "$subcommand" in
     version)
@@ -89,6 +109,9 @@ case "$subcommand" in
         package=$1; shift 
         cat $TAKOMA_CONFIG | jq 'keys'|jq -r '.[]'
         ;;
+    install)
+        generate_default_takoma_json
+        ;;
     current)
         cat $TAKOMA_CACHE
         ;;
@@ -96,7 +119,6 @@ case "$subcommand" in
         environment=$1
         echo "Switching to environment:" $environment
         parse_vars_for_environment
-
 
         switch_aws_credentials
         #switch_s3cmd_credentials
