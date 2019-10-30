@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
-
-set -e;
-cd "$HOME"
+echo "Donwloading takoma..."
 mkdir -p "$HOME/bin"
-curl https://raw.githubusercontent.com/pantulis/takoma/master/takoma > "$HOME/bin/takoma" && chmod a+x $HOME/bin/takoma
+curl -s -S https://raw.githubusercontent.com/pantulis/takoma/master/takoma > "$HOME/bin/takoma" && chmod a+x $HOME/bin/takoma 
 
 echo
+echo 'To complete installation of takoma make sure that $HOME/bin is in your $PATH'
+echo 'by adding this line to your .profile:'
 echo
-echo "To complete installation of 'takoma' make sure that $HOME/bin is in your $PATH"
-echo "by adding this file to your .profile" 
 echo 'export PATH=$PATH:~/bin'
